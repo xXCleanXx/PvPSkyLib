@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package de.xxcleanxx.pvpskylib.common.mysql;
 
 import java.sql.SQLException;
@@ -30,4 +31,38 @@ public class MySQL {
 			e.printStackTrace();
 		}
 	}
+=======
+package de.xxcleanxx.pvpskylib.common.mysql;
+
+import java.sql.SQLException;
+
+public class MySQL {
+	private ConnectionMethods _connectionMethods;
+
+	public MySQL() {
+
+	}
+
+	public ConnectionMethods getConnectionMethods() {
+		return this._connectionMethods;
+	}
+
+	private void setConnectionMethods(ConnectionMethods connectionMethods) {
+		this._connectionMethods = connectionMethods;
+	}
+
+	public ConnectionMethods Connect() {
+		this.setConnectionMethods(new ConnectionMethods());
+
+		return this.getConnectionMethods();
+	}
+
+	public void close() {
+		try {
+			if (!this.getConnectionMethods().getConnection().isClosed()) this.getConnectionMethods().getConnection().close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+>>>>>>> aa12e26b5d4dc7afcdfc3c4b3383140b8b60bc35
 }

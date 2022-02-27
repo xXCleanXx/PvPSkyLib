@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 api-version: '1.16'
 name: 'PvPSkyLib'
 author: 'xXCleanXx'
 version: '1.0'
+=======
+api-version: '1.16'
+name: 'PvPSkyLib'
+author: 'xXCleanXx'
+version: '1.0'
+>>>>>>> aa12e26b5d4dc7afcdfc3c4b3383140b8b60bc35
 main: 'de.xxcleanxx.pvpskylib.bungeecord.main.Main'
