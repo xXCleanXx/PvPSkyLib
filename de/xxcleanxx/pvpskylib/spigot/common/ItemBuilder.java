@@ -7,6 +7,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnegative;
+
 public class ItemBuilder {
     private Material _material;
     private ItemMeta _itemMeta;
@@ -149,7 +151,7 @@ public class ItemBuilder {
      * @return itself.
      */
     @Deprecated
-    public ItemBuilder setSubId(short subId) {
+    public ItemBuilder setSubId(@Nonnegative short subId) {
         this._subId = subId;
 
         return this;
