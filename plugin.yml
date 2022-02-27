@@ -1,0 +1,5 @@
+api-version: '1.16'
+name: 'PvPSkyLib'
+author: 'xXCleanXx'
+version: '1.0'
+main: 'de.xxcleanxx.pvpskylib.spigot.main.Main'
