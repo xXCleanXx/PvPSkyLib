@@ -16,4 +16,6 @@ public interface IGroup extends IPrefixAndSuffix, IPermissionHolder, IIdentifiab
     void addChildGroup(IGroup group);
 
     void removeChildGroup(IGroup group);
+
+    boolean hasChildGroup(IGroup group);
 }
