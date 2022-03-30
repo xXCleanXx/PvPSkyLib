@@ -1,6 +1,5 @@
 package de.xxcleanxx.pvpskylib.spigot.common;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -8,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnegative;
 
+@SuppressWarnings({"unused", "UnusedReturnValue"})
 public class ItemBuilder {
     private Material _material;
     private ItemMeta _itemMeta;
@@ -125,7 +125,7 @@ public class ItemBuilder {
 
     /**
      * Sets the amount of this item;
-     * @param amount
+     * @param amount Amount of the item.
      * @return itself.
      */
     public @NotNull ItemBuilder setAmount(int amount) {
@@ -146,7 +146,7 @@ public class ItemBuilder {
 
     /**
      * Sets the sub id of this item.
-     * @param subId
+     * @param subId SubId of the item.
      * @return itself.
      */
     @Deprecated
@@ -164,8 +164,8 @@ public class ItemBuilder {
         ItemStack itemStack = new ItemStack(this.getMaterial(), this.getAmount(), this.getSubId());
         ItemMeta itemMeta = this.getItemMeta() != null ? this.getItemMeta() : itemStack.getItemMeta();
 
-        if (this.getName() != null) {
-            itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', this.getName()));
+        if (this.getName() != null && itemMeta != null) {
+            itemMeta.setDisplayName(Coloring.translate(this.getName()));
         }
 
         itemStack.setItemMeta(itemMeta);

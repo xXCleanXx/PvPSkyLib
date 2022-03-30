@@ -2,106 +2,93 @@ package de.xxcleanxx.pvpskylib.common.clan.abstractions;
 
 import de.xxcleanxx.pvpskylib.common.clan.enums.ClanRank;
 import de.xxcleanxx.pvpskylib.common.clan.interfaces.IClan;
-import de.xxcleanxx.pvpskylib.common.identifiable.Nameable;
-import de.xxcleanxx.pvpskylib.common.identifiable.Prefix;
-import de.xxcleanxx.pvpskylib.common.identifiable.abstractions.IdentifiableBase;
-import de.xxcleanxx.pvpskylib.common.identifiable.abstractions.NameableBase;
-import de.xxcleanxx.pvpskylib.common.identifiable.abstractions.PrefixBase;
+import de.xxcleanxx.pvpskylib.common.game.interfaces.IOfflineGamer;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ClanBase<DerivedPlayer> extends IdentifiableBase implements IClan<DerivedPlayer> {
-    protected List<DerivedPlayer> _members = new ArrayList<>();
-    protected NameableBase _nameableBase = new Nameable();
-    protected PrefixBase _prefixBase = new Prefix();
+@SuppressWarnings("unused")
+public abstract class ClanBase implements IClan {
+    protected int _id;
+    protected String _name;
+    protected String _prefix;
+    protected List<IOfflineGamer> _members = new ArrayList<>();
 
-    public ClanBase(int id, String name, String prefix, List<DerivedPlayer> members) {
-        super(id);
+    public ClanBase(int id, String name, String prefix, List<IOfflineGamer> members) {
+        this.setId(id);
         this.setName(name);
         this.setPrefix(prefix);
         this.setMembers(members);
     }
 
-    public ClanBase(int id, String name, String prefix) {
+    public ClanBase(int id, @NotNull String name, @Nullable String prefix) {
         this(id, name, prefix, null);
     }
 
-    public ClanBase(int id, String name, List<DerivedPlayer> members) {
+    public ClanBase(int id, @NotNull String name, @Nullable List<IOfflineGamer> members) {
         this(id, name, null, members);
     }
 
-    public ClanBase(int id, String name) {
+    public ClanBase(int id, @NotNull String name) {
         this(id, name, null, null);
     }
 
-    public ClanBase(String name, String prefix, List<DerivedPlayer> members) {
+    public ClanBase(@NotNull String name, @Nullable String prefix, @Nullable List<IOfflineGamer> members) {
         this(-1, name, prefix, members);
     }
 
-    public ClanBase(String name, String prefix) {
+    public ClanBase(@NotNull String name, @Nullable String prefix) {
         this(name, prefix, null);
     }
 
-    public ClanBase(String name, List<DerivedPlayer> members) {
+    public ClanBase(@NotNull String name, @Nullable List<IOfflineGamer> members) {
         this(name, null, members);
     }
 
-    public ClanBase(String name) {
+    public ClanBase(@NotNull String name) {
         this(name, null, null);
     }
 
-    // Base Properties
-    @NotNull
-    protected NameableBase getNameableBase() {
-        return this._nameableBase;
-    }
-
-    @NotNull
-    protected PrefixBase getPrefixBase() {
-        return this._prefixBase;
-    }
-    // # ### #
-
     // Properties
-    public String getName() {
-        return this.getNameableBase().getName();
+    public int getId() {
+        return this._id;
     }
 
-    public void setName(String name) {
-        this.getNameableBase().setName(name);
+    public void setId(int id) {
+        this._id = id;
     }
 
-    public String getPrefix() {
-        return this.getPrefixBase().getPrefix();
+    public @NotNull String getName() {
+        return this._name;
     }
 
-    public void setPrefix(String prefix) {
-        this.getPrefixBase().setPrefix(prefix);
+    public void setName(@NotNull String name) {
+        this._name = name;
     }
 
-    public List<DerivedPlayer> getMembers() {
+    public @Nullable String getPrefix() {
+        return this._prefix;
+    }
+
+    public void setPrefix(@Nullable String prefix) {
+        this._prefix = prefix;
+    }
+
+    public @NotNull List<IOfflineGamer> getMembers() {
+        if (this._members == null) this.setMembers(new ArrayList<>());
         return this._members;
     }
 
-    protected void setMembers(List<DerivedPlayer> members) {
+    protected void setMembers(@Nullable List<IOfflineGamer> members) {
         this._members = members;
     }
     // # ### #
 
     // Public Methods
-    public abstract void addMember(DerivedPlayer player, ClanRank clanRank);
-
-    public void addMember(DerivedPlayer player) {
+    public void addMember(@NotNull IOfflineGamer player) {
         this.addMember(player, ClanRank.MEMBER);
     }
-
-    public abstract void removeMember(DerivedPlayer member);
-
-    public abstract boolean isMember(DerivedPlayer player);
-    // # ### #
-
-    // Private Methods
     // # ### #
 }

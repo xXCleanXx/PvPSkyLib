@@ -8,39 +8,24 @@ import de.xxcleanxx.pvpskylib.common.enums.Language;
 import de.xxcleanxx.pvpskylib.common.game.Staff;
 import de.xxcleanxx.pvpskylib.common.game.interfaces.IOfflineGamer;
 import de.xxcleanxx.pvpskylib.common.game.interfaces.IStaff;
-import de.xxcleanxx.pvpskylib.common.identifiable.PrefixAndSuffix;
-import de.xxcleanxx.pvpskylib.common.identifiable.interfaces.IPrefixAndSuffix;
-import de.xxcleanxx.pvpskylib.common.permission.abstractions.PermissionHolderBase;
-import de.xxcleanxx.pvpskylib.common.permission.interfaces.IPermission;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.UUID;
 
-public abstract class OfflineGamerBase extends PermissionHolderBase implements IOfflineGamer {
+@SuppressWarnings("unused")
+public abstract class OfflineGamerBase implements IOfflineGamer {
     protected IWallet _wallet;
     protected IBankAccount _bankAccount;
     protected IStaff _staffBase;
-    protected IPrefixAndSuffix _prefixAndSuffixBase;
+    protected String _name;
+    protected String _prefix;
+    protected String _suffix;
     protected Language _language;
     protected UUID _uuid;
 
-    public OfflineGamerBase(int id, @NotNull UUID uuid, List<IPermission> permissions) {
-        super(id, permissions);
-        this.setUniqueId(uuid);
-    }
-
-    public OfflineGamerBase(int id, @NotNull UUID uuid) {
-        this(id, uuid, null);
-    }
-
-    public OfflineGamerBase(@NotNull UUID uuid, List<IPermission> permissions) {
-        this(-1, uuid, permissions);
-    }
-
     public OfflineGamerBase(@NotNull UUID uuid) {
-        this(uuid, null);
+        this.setUniqueId(uuid);
     }
 
     // Base Properties
@@ -49,20 +34,22 @@ public abstract class OfflineGamerBase extends PermissionHolderBase implements I
 
         return this._staffBase;
     }
-
-    protected @NotNull IPrefixAndSuffix getPrefixAndSuffixBase() {
-        if (this._prefixAndSuffixBase == null) this._prefixAndSuffixBase = new PrefixAndSuffix();
-
-        return this._prefixAndSuffixBase;
-    }
     // # ### #
 
     // Properties
-    public UUID getUniqueI() {
+    public @NotNull String getName() {
+        return this._name;
+    }
+
+    public void setName(@NotNull String name) {
+        this._name = name;
+    }
+
+    public @NotNull UUID getUniqueI() {
         return this._uuid;
     }
 
-    protected void setUniqueId(UUID uuid) {
+    protected void setUniqueId(@NotNull UUID uuid) {
         this._uuid = uuid;
     }
 
@@ -98,19 +85,19 @@ public abstract class OfflineGamerBase extends PermissionHolderBase implements I
     }
 
     public @Nullable String getPrefix() {
-        return this.getPrefixAndSuffixBase().getPrefix();
+        return this._prefix;
     }
 
     public void setPrefix(@Nullable String prefix) {
-        this.getPrefixAndSuffixBase().setPrefix(prefix);
+        this._prefix = prefix;
     }
 
     public @NotNull String getSuffix() {
-        return this.getPrefixAndSuffixBase().getSuffix();
+        return this._suffix;
     }
 
     public void setSuffix(@Nullable String suffix) {
-        this.getPrefixAndSuffixBase().setSuffix(suffix);
+        this._suffix = suffix;
     }
     // # ### #
 }

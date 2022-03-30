@@ -10,6 +10,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class Config {
     private static List<ConfigFile> _configFiles;
 
@@ -59,7 +60,9 @@ public class Config {
             plugin.saveResource(fileName, false);
         }
 
-        configFile.loadConfig();
+        if (!configFile.loadConfig()) {
+            throw new RuntimeException("Config could not be loaded!");
+        }
 
         return configFile;
     }
@@ -67,7 +70,9 @@ public class Config {
     public static void reloadConfig(@NotNull ConfigFile configFile) {
         if (configFile.getFile() == null) throw new IllegalArgumentException("File cannot be null!");
 
-        configFile.loadConfig();
+        if (!configFile.loadConfig()) {
+            throw new RuntimeException("Config could not be loaded!");
+        }
     }
 
     @Nullable
@@ -134,42 +139,38 @@ public class Config {
         return getString(path, Language.CONSOLE);
     }
 
-    @Nullable
     public static List<String> getStringList(@NotNull String path, @NotNull Language language) {
         if (path.trim().isEmpty()) throw new IllegalArgumentException("Path is empty or consists of white-spaces!");
 
-        try {
-            return getConfig(language).getStringList(path);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        FileConfiguration config = getConfig(language);
 
-            return null;
-        }
+        if (config == null)
+            throw new NullPointerException("Config cannot be null for language: " + language.name() + "!");
+
+        return config.getStringList(path);
     }
 
     @Nullable
     public static List<?> getList(@NotNull String path, @NotNull Language language) {
         if (path.trim().isEmpty()) throw new IllegalArgumentException("Path is empty or consists of white-spaces!");
 
-        try {
-            return getConfig(language).getList(path);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        FileConfiguration config = getConfig(language);
 
-            return null;
-        }
+        if (config == null)
+            throw new NullPointerException("Config cannot be null for language: " + language.name() + "!");
+
+        return config.getList(path);
     }
 
     public static int getInt(@NotNull String path, @NotNull Language language) {
         if (path.trim().isEmpty()) throw new IllegalArgumentException("Path is empty or consists of white-spaces!");
 
-        try {
-            return getConfig(language).getInt(path);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        FileConfiguration config = getConfig(language);
 
-            return 0;
-        }
+        if (config == null)
+            throw new NullPointerException("Config cannot be null for language: " + language.name() + "!");
+
+        return config.getInt(path);
     }
 
     public static int getInt(@NotNull String path) {
@@ -179,13 +180,12 @@ public class Config {
     public static boolean getBoolean(@NotNull String path, @NotNull Language language) {
         if (path.trim().isEmpty()) throw new IllegalArgumentException("Path is empty or consists of white-spaces!");
 
-        try {
-            return getConfig(language).getBoolean(path);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        FileConfiguration config = getConfig(language);
 
-            return false;
-        }
+        if (config == null)
+            throw new NullPointerException("Config cannot be null for language: " + language.name() + "!");
+
+        return config.getBoolean(path);
     }
 
     public static boolean getBoolean(@NotNull String path) {

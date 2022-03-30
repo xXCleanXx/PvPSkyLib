@@ -1,36 +1,39 @@
 package de.xxcleanxx.pvpskylib.common.clan.interfaces;
 
 import de.xxcleanxx.pvpskylib.common.clan.enums.ClanRank;
-import de.xxcleanxx.pvpskylib.common.identifiable.interfaces.INameable;
-import de.xxcleanxx.pvpskylib.common.identifiable.interfaces.IPrefix;
-import de.xxcleanxx.pvpskylib.common.identifiable.interfaces.IIdentifiable;
+import de.xxcleanxx.pvpskylib.common.game.interfaces.IOfflineGamer;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public interface IClan<DerivedPlayer> extends IIdentifiable, INameable, IPrefix {
-    List<DerivedPlayer> getMembers();
+@SuppressWarnings("unused")
+public interface IClan {
+    int getId();
 
-    DerivedPlayer getLeader();
+    void setId(int id);
 
-    void setLeader(DerivedPlayer player);
+    String getPrefix();
 
-    void addMember(DerivedPlayer player, ClanRank clanRank);
+    void setPrefix(@Nullable String prefix);
 
-    void addMember(DerivedPlayer player);
+    @Nullable String getName();
 
-    void removeMember(DerivedPlayer player);
+    @NotNull List<IOfflineGamer> getMembers();
 
-    void promote(DerivedPlayer member);
+    @NotNull IOfflineGamer getLeader();
 
-    void demote(DerivedPlayer member);
+    void setLeader(@NotNull IOfflineGamer player);
 
-    boolean isMember(DerivedPlayer player);
+    void addMember(@NotNull IOfflineGamer player, @NotNull ClanRank clanRank);
 
-    void broadcast(DerivedPlayer sender, String message, DerivedPlayer... exclude);
+    void addMember(@NotNull IOfflineGamer player);
 
-    void broadcast(DerivedPlayer sender, String message);
+    void removeMember(@NotNull IOfflineGamer member);
 
-    void broadcast(String message, DerivedPlayer... exclude);
+    void promote(@NotNull IOfflineGamer member);
 
-    void broadcast(String message);
+    void demote(@NotNull IOfflineGamer member);
+
+    boolean isMember(@NotNull IOfflineGamer player);
 }

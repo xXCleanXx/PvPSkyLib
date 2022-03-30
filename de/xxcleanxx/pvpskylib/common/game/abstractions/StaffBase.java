@@ -7,7 +7,9 @@ public abstract class StaffBase implements IStaff {
 
     public StaffBase() { }
 
-    public StaffBase(boolean flag) { }
+    public StaffBase(boolean flag) {
+        this.setStaff(flag);
+    }
 
     public boolean isStaff() {
         return this._isStaff;

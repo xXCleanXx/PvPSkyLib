@@ -3,9 +3,7 @@ package de.xxcleanxx.pvpskylib.spigot.common;
 import org.bukkit.ChatColor;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-
+@SuppressWarnings("unused")
 public class Coloring {
     public static String translate(@NotNull String text) {
         if (text.trim().isEmpty()) return text;
@@ -16,12 +14,10 @@ public class Coloring {
     public static String[] translate(@NotNull String[] texts) {
         if (texts.length == 0) throw new IllegalArgumentException("Texts cannot be empty!");
 
-        List<String> list = new ArrayList<>();
-
-        for (String item : texts) {
-            list.add(translate(item));
+        for(int i = 0; i < texts.length; i++) {
+            texts[i] = translate(texts[i]);
         }
 
-        return list.toArray(new String[0]);
+        return texts;
     }
 }

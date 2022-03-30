@@ -1,13 +1,12 @@
 package de.xxcleanxx.pvpskylib.spigot.common;
 
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
-import java.io.IOException;
 
+@SuppressWarnings("unused")
 public class ConfigFile {
     private String _name;
     private File _file;
@@ -59,6 +58,7 @@ public class ConfigFile {
         this._config = config;
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean loadConfig() {
         try {
             if (this.getFile() != null) {
@@ -66,7 +66,7 @@ public class ConfigFile {
 
                 return true;
             }
-        } catch (IOException | InvalidConfigurationException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
 

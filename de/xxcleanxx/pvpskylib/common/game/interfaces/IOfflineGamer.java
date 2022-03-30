@@ -3,15 +3,21 @@ package de.xxcleanxx.pvpskylib.common.game.interfaces;
 import de.xxcleanxx.pvpskylib.common.balance.interfaces.IBankAccount;
 import de.xxcleanxx.pvpskylib.common.balance.interfaces.IWallet;
 import de.xxcleanxx.pvpskylib.common.enums.Language;
-import de.xxcleanxx.pvpskylib.common.identifiable.interfaces.IIdentifiable;
-import de.xxcleanxx.pvpskylib.common.identifiable.interfaces.INameable;
-import de.xxcleanxx.pvpskylib.common.identifiable.interfaces.IPrefixAndSuffix;
-import de.xxcleanxx.pvpskylib.common.permission.interfaces.IPermissionHolder;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
-public interface IOfflineGamer extends IIdentifiable, IPrefixAndSuffix, INameable, IStaff, IPermissionHolder {
+@SuppressWarnings("unused")
+public interface IOfflineGamer extends IStaff {
+    @Nullable String getPrefix();
+
+    void setPrefix(@Nullable String prefix);
+
+    @Nullable String getSuffix();
+
+    void setSuffix(@Nullable String suffix);
+
     @NotNull UUID getUniqueId();
 
     @NotNull String getDisplayName();

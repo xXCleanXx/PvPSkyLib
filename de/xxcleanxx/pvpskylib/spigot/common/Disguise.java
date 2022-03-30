@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import java.lang.reflect.Field;
 
+@SuppressWarnings("unused")
 public class Disguise {
     private Player _player;
     private GameProfile _gameProfile;
