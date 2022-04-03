@@ -8,9 +8,12 @@ import de.xxcleanxx.pvpskylib.common.enums.Language;
 import de.xxcleanxx.pvpskylib.common.game.Staff;
 import de.xxcleanxx.pvpskylib.common.game.interfaces.IOfflineGamer;
 import de.xxcleanxx.pvpskylib.common.game.interfaces.IStaff;
+import de.xxcleanxx.pvpskylib.common.permissions.PvPSkyPermission;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @SuppressWarnings("unused")
@@ -23,6 +26,7 @@ public abstract class OfflineGamerBase implements IOfflineGamer {
     protected String _suffix;
     protected Language _language;
     protected UUID _uuid;
+    protected List<PvPSkyPermission> _permissions = new ArrayList<>();
 
     public OfflineGamerBase(@NotNull UUID uuid) {
         this.setUniqueId(uuid);
@@ -98,6 +102,50 @@ public abstract class OfflineGamerBase implements IOfflineGamer {
 
     public void setSuffix(@Nullable String suffix) {
         this._suffix = suffix;
+    }
+
+    public @NotNull List<PvPSkyPermission> getPermissions() {
+        return this._permissions;
+    }
+
+    public boolean addPermission(@NotNull PvPSkyPermission permission) {
+        if (this.hasPermission(permission)) return false;
+
+        return this.getPermissions().add(permission);
+    }
+
+    public boolean removePermission(@NotNull String permission) {
+        if (permission.trim().isEmpty()) throw new IllegalArgumentException("Permission cannot be empty or consists of white-spaces!");
+
+        PvPSkyPermission remove = null;
+
+        for(PvPSkyPermission item : this.getPermissions()) {
+            if (item.getName().equalsIgnoreCase(permission.trim())) {
+                remove = item;
+
+                break;
+            }
+        }
+
+        return remove != null && this.getPermissions().remove(remove);
+    }
+
+    public boolean removePermission(@NotNull PvPSkyPermission permission) {
+        return this.removePermission(permission.getName());
+    }
+
+    public boolean hasPermission(@NotNull String permission) {
+        if (permission.trim().isEmpty()) throw new IllegalArgumentException("Permission cannot be empty or consists of white-spaces!");
+
+        for (PvPSkyPermission item : getPermissions()) {
+            if (item.getName().equalsIgnoreCase(permission.trim())) return true;
+        }
+
+        return false;
+    }
+
+    public boolean hasPermission(@NotNull PvPSkyPermission permission) {
+        return this.hasPermission(permission.getName());
     }
     // # ### #
 }

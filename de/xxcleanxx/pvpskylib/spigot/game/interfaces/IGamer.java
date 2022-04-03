@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("unused")
 public interface IGamer<DerivedPlayer> extends IOfflineGamer, IGamerMessenger {
     @NotNull DerivedPlayer getPlayer();
 
